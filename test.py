@@ -29,9 +29,9 @@ for pin in pins :
 		print("Pin "+str(pin)+" Esta trabajando" )
 		
 
-#lo mismo, pero la diferencia es que tenemos 
+#lo mismo, pero el testeo es hacia atras
 #para loop donde pin = 14 next 15,17,18
-# hacia atrás
+
 for pin in reversed(pins) :
 	GPIO.output(pin,  GPIO.HIGH)
 	time.sleep(0.5)
@@ -42,4 +42,4 @@ for pin in reversed(pins) :
 
 #limpieza de todos los GPIO 
 GPIO.cleanup()
-print "Apagar todos los relés"
+print "Todos los reles apagados"
