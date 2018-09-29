@@ -1,37 +1,37 @@
-# getting the main GPIO libraly
+# obteniendo la biblioteca principal de GPIO
 import RPi.GPIO as GPIO
-# getting the time libraly
+# obtener la biblioteca de tiempo
 import time
 
-# setting a current mode
+# configurando un modo actual
 GPIO.setmode(GPIO.BCM)
-#removing the warings 
+#eliminando los warings 
 GPIO.setwarnings(False)
-#creating a list (array) with the number of GPIO's that we use 
+#creando una lista (matriz) con el número de GPIO que usamos
 pins = [18,17,15,14] 
 
-#setting the mode for all pins so all will be switched on 
+#estableciendo el modo para todos los pines para que todos estén encendidos 
 GPIO.setup(pins, GPIO.OUT)
 
-#for loop where pin = 18 next 17 ,15, 14 
+#bucle de pines = 18 sigiendo 17 ,15, 14 
 for pin in pins :
-	#setting the GPIO to HIGH or 1 or true
+	#configurando el GPIO en ALTO o 1 o verdadero
 	GPIO.output(pin,  GPIO.HIGH)
-	#wait 0,5 second
+	#Espera de 0,5 segundos
 	time.sleep(0.5)
-	#setting the GPIO to LOW or 0 or false
+	#configurar el GPIO en BAJO o 0 o falso
 	GPIO.output(pin,  GPIO.LOW)
-	#wait 0,5 second
+	#Espera de 0,5 segundos
 	time.sleep(0.5)
 
-	#Checking if the current relay is running and printing it 
+	#Verificar si el relé actual se está ejecutando e imprimirlo 
 	if not GPIO.input(pin) : 
-		print("Pin "+str(pin)+" is working" )
+		print("Pin "+str(pin)+" Esta trabajando" )
 		
 
-#same but the difference is that  we have 
-#for loop where pin = 14 next 15,17,18
-# backwards
+#lo mismo, pero la diferencia es que tenemos 
+#para loop donde pin = 14 next 15,17,18
+# hacia atrás
 for pin in reversed(pins) :
 	GPIO.output(pin,  GPIO.HIGH)
 	time.sleep(0.5)
@@ -40,6 +40,6 @@ for pin in reversed(pins) :
 	time.sleep(0.5)
 
 
-#cleaning all GPIO's 
+#limpieza de todos los GPIO 
 GPIO.cleanup()
-print "Shutdown All relays"
+print "Apagar todos los relés"
