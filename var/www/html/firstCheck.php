@@ -1,8 +1,8 @@
 <?php 
 // executing file and getting the output 
-// http://php.net/manual/en/function.exec.php
+// ejecutando el archivo y obteniendo la salida
 
 exec("sudo python /home/pi/firstCheck.py " ,$output);
 
-// the output is encoded in json 
+// la salida está codificada en json
 echo json_encode($output); 
