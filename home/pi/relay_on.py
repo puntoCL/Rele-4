@@ -13,7 +13,7 @@ def f(x):
 	'4':14,
 }[x]
 
-# sys.argv [1] es la siguiente entrada después del nombre
+# sys.argv [1] es la siguiente entrada despues del nombre
 # Ejemplo:
 # sudo python relay_on.py 1
 # si queremos obtener 1, necesitamos sys.argv [1]
@@ -25,5 +25,5 @@ GPIO.setwarnings(False)
 GPIO.setup(pinNum,GPIO.OUT)
 #turing en el relevo actual
 GPIO.output(pinNum,0)
-#retorno del estado actual del relé
+#retorno del estado actual del rele
 print not GPIO.input(pinNum)
