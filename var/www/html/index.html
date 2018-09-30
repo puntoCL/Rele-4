@@ -8,7 +8,7 @@ Jquery  -  http://jquery.com/
 <html>
 <head>
 <meta charset="UTF-8" />
-<!-- for mobile version -->
+<!--  version movil -->
 <meta name="viewport" content="width=400px, initial-scale=1">
 <link href="bootstrap.css" rel="stylesheet">
 <link href="bootstrap-switch.css" rel="stylesheet">
@@ -19,53 +19,53 @@ Jquery  -  http://jquery.com/
 
 
 <body>
-<h3>4 Array relay Web App</h3>
+<h3>4 Aplicación web de retransmisión de matriz</h3>
 
 <div>
-<span>4 Array relay</span></br>
-<!-- creating table -->
+<span>Modulo rele</span></br>
+<!-- table -->
 <table>
   <tr>
-    <td><label for="relay1">Light 1</label></td>
-    <!-- creating button for the relay -->
+    <td><label for="relay1">Luz 1</label></td>
+    <!-- creando el botón para el relevo -->
     <td><input type="checkbox" name="relay1" id="relay1"checked></td>
   </tr>
     <tr>
-    <td><label for="relay2">Light 2</label></td>
+    <td><label for="relay2">Luz 2</label></td>
     <td><input type="checkbox" name="relay2" id="relay2"checked></td>
   </tr>
     <tr>
-    <td><label for="relay3">Light 3</label></td>
+    <td><label for="relay3">Luz 3</label></td>
     <td><input type="checkbox" name="relay3" id="relay3"checked></td>
   </tr>
     <tr>
-    <td><label for="relay4">Light 4</label></td>
+    <td><label for="relay4">Luz 4</label></td>
     <td><input type="checkbox" name="relay4" id="relay4"checked></td>
   </tr>
 
 
 </table>
 
-<!-- feedback paragraphs -->
+<!-- párrafos de comentarios -->
 
-<p>Relay 1 is  <span id="feedback1"></span> </p>
+<p>Rele 1 esta  <span id="feedback1"></span> </p>
 
-<p>Relay 2 is <span id="feedback2"></span> </p>
+<p>Rele 2 esta <span id="feedback2"></span> </p>
 
-<p>Relay 3 is <span id="feedback3"></span> </p>
+<p>Rele 3 esta <span id="feedback3"></span> </p>
 
-<p>Relay 4 is <span id="feedback4"></span> </p>
+<p>Rele 4 esta <span id="feedback4"></span> </p>
 </div>
 
 <script type="text/javascript">
 
 
-//setting all buttons off state to be red color
+//configurar todos los botones fuera de estado para ser de color rojo
 $.fn.bootstrapSwitch.defaults.offColor="danger";
 
 
 
-//inicalizing the switch buttons 
+//inicalizar los botones de cambio
 $("[name='relay1']").bootstrapSwitch();
 $("[name='relay2']").bootstrapSwitch();
 $("[name='relay3']").bootstrapSwitch();
@@ -73,30 +73,30 @@ $("[name='relay4']").bootstrapSwitch();
 
 
 
-//this will be execute when the html is ready
+//esto se ejecutará cuando el html esté listo
 $(document).ready(function(){
 
-  //ajax request with post method (better to be GET)
+  //solicitud ajax con método de publicación (mejor para ser GET)
   $.ajax({
     method: "POST",
     url: "firstCheck.php",
     data: {}
   })
   .done(function( msg ) {
-    // we need to parse the responce 2 times 
+    // tenemos que analizar la respuesta 2 veces
     msg = JSON.parse(msg);
     msg = JSON.parse(msg);
 
-    //for loop that is implemented for the feedback divs and buttons state
+    //para el bucle que se implementa para el estado de botones y divs de retroalimentación
     for(var i = 0 ; i < 4; i++){
 
-      // setting the feedback divs
+      // establecer los comentarios divs
       if(msg[i] == true){
-        $("#feedback"+(i+1)).html("Turned On");
+        $("#feedback"+(i+1)).html("esta On");
       }else{
-        $("#feedback"+(i+1)).html("Turned Off");
+        $("#feedback"+(i+1)).html("esta Off");
       } 
-      //setting the current button state
+      //configurando el estado actual del botón
       $("[name='relay"+(i+1)+"']").bootstrapSwitch('state',msg[i]);
     } 
 });
@@ -110,13 +110,13 @@ $(document).ready(function(){
 
 
 
-// making onclick event listener for the buttons 
+// Hacer onclick event listener para los botones 
 $('input[name="relay1"],'+
   'input[name="relay2"],'+
   'input[name="relay3"],'+
   'input[name="relay4"]').on('switchChange.bootstrapSwitch', function(event, state) {
 
-// checking whitch button is clicked
+// verificando qué botón se hace clic
 var relayID = event.target.id.substring(event.target.id.length - 1);
 
 
@@ -129,11 +129,11 @@ $.ajax({
   data: { clicked :state , relayId:relayID}
 })
   .done(function( msg ) {
-  // changing the feedback paragraphs
+  // cambiando los comentarios
   if(msg == "true"){
-    $("#feedback"+(relayID)).html("Turned On");
+    $("#feedback"+(relayID)).html("esta On");
   }else{
-    $("#feedback"+(relayID)).html("Turned Off");
+    $("#feedback"+(relayID)).html("esta Off");
   } 
 
   });
