@@ -1,0 +1,147 @@
+
+<!--
+Bootstrap  -   http://getbootstrap.com/
+Switch buttons  -  http://www.bootstrap-switch.org/
+Jquery  -  http://jquery.com/ 
+-->
+
+<html>
+<head>
+<meta charset="UTF-8" />
+<!-- Version mobil -->
+<meta name="viewport" content="width=400px, initial-scale=1">
+<link href="bootstrap.css" rel="stylesheet">
+<link href="bootstrap-switch.css" rel="stylesheet">
+<script src="jquery.js"></script>
+<script src="bootstrap-switch.js"></script>
+
+</head>
+
+
+<body>
+<h3>Rele Web</h3>
+
+<div>
+<span>Modulos de 4 reles</span></br>
+<!-- Tabla -->
+<table>
+  <tr>
+    <td><label for="relay1">Luz 1</label></td>
+    <!-- Boton de los rele -->
+    <td><input type="checkbox" name="relay1" id="relay1"checked></td>
+  </tr>
+    <tr>
+    <td><label for="relay2">Luz 2</label></td>
+    <td><input type="checkbox" name="relay2" id="relay2"checked></td>
+  </tr>
+    <tr>
+    <td><label for="relay3">Luz 3</label></td>
+    <td><input type="checkbox" name="relay3" id="relay3"checked></td>
+  </tr>
+    <tr>
+    <td><label for="relay4">Luz 4</label></td>
+    <td><input type="checkbox" name="relay4" id="relay4"checked></td>
+  </tr>
+
+
+</table>
+
+<!-- párrafos de comentarios -->
+
+<p>Rele 1 esta  <span id="feedback1"></span> </p>
+
+<p>Rele 2 esta <span id="feedback2"></span> </p>
+
+<p>Rele 3 esta <span id="feedback3"></span> </p>
+
+<p>Rele 4 esta <span id="feedback4"></span> </p>
+</div>
+
+<script type="text/javascript">
+
+
+//configurar todos los botones de estado para ser de color rojo
+$.fn.bootstrapSwitch.defaults.offColor="danger";
+
+
+
+//inicalizar los botones de cambio 
+$("[name='relay1']").bootstrapSwitch();
+$("[name='relay2']").bootstrapSwitch();
+$("[name='relay3']").bootstrapSwitch();
+$("[name='relay4']").bootstrapSwitch();
+
+
+
+//esto se ejecutará cuando el html esté listo
+$(document).ready(function(){
+
+  //solicitud ajax con método de publicación (mejor para ser GET)
+  $.ajax({
+    method: "POST",
+    url: "firstCheck.php",
+    data: {}
+  })
+  .done(function( msg ) {
+    // tenemos que analizar la respuesta 2 veces 
+    msg = JSON.parse(msg);
+    msg = JSON.parse(msg);
+
+    //para el bucle que se implementa para el estado de botones y divs de retroalimentación
+    for(var i = 0 ; i < 4; i++){
+
+      // establecer los comentarios divs
+      if(msg[i] == true){
+        $("#feedback"+(i+1)).html("Esta On");
+      }else{
+        $("#feedback"+(i+1)).html("Esta Off");
+      } 
+      //configurando el estado actual del botón
+      $("[name='relay"+(i+1)+"']").bootstrapSwitch('state',msg[i]);
+    } 
+});
+
+
+
+});
+
+
+
+
+
+
+// Hacer onclick event listener para los botones 
+$('input[name="relay1"],'+
+  'input[name="relay2"],'+
+  'input[name="relay3"],'+
+  'input[name="relay4"]').on('switchChange.bootstrapSwitch', function(event, state) {
+
+// verificando qué botón se hace clic
+var relayID = event.target.id.substring(event.target.id.length - 1);
+
+
+
+
+//ajax solicitud POST
+$.ajax({
+  method: "POST",
+  url: "changeState.php",
+  data: { clicked :state , relayId:relayID}
+})
+  .done(function( msg ) {
+  // cambiando los comentarios
+  if(msg == "true"){
+    $("#feedback"+(relayID)).html("Esta On");
+  }else{
+    $("#feedback"+(relayID)).html("Esta Off");
+  } 
+
+  });
+
+
+});
+</script>
+
+</body>
+
+</html>
