@@ -2,8 +2,6 @@
 # https://docs.python.org/2/library/sys.html
 # https://docs.python.org/2/library/json.html
 
-
-
 #obtener la biblioteca principal de GPIO
 import RPi.GPIO as GPIO
 #time and json
